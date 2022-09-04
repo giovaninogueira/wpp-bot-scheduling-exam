@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Testing QR code</title>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <style>
+    .center {
+      display: block;
+      margin: 0px auto;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  {{#if isConnected}}
+  <div>
+    <h1 class="center">WhatsApp Bot está Ok ✅</h1>
+  </div>
+  {{else}}
+
+  {{#if qrCodeBase64}}
+
+  <div>
+    <h1 class="center">Ler Qr Code para iniciar o bot</h1>
+  </div>
+
+  <img id='barcode' class="center" src="{{qrCodeBase64}}" alt="" title="qrcode whatsapp" width="500" height="500" />
+
+  {{else}}
+
+  <div>
+    <h1 class="center">Iniciando bot...</h1>
+  </div>
+
+  {{/if}}
+  {{/if}}
+
+  <script>
+    setInterval(() => {
+      $.ajax({
+        url: '/health/status',
+        success: function (response) {
+          if (response.isConnected || response.qrCodeBase64) {
+            window.location.reload();
+          }
+        }
+      })
+    }, 5000)
+  </script>
+</body>
+
+</html>
