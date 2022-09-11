@@ -4,6 +4,6 @@ import { GetHealthBotController } from './get-health-bot.controller';
 
 @Module({
   providers: [GetHealthBotService],
-  controllers: [GetHealthBotController]
+  controllers: [GetHealthBotController],
 })
 export class GetHealthBotModule {}

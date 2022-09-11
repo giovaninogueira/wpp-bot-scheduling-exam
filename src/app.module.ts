@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { WhatsappModule } from './app/providers/whatsapp/whatsapp.module';
-import { SchedulingModule } from './app/use-cases/scheduling/scheduling.module';
-import { HealthBotModule } from './app/use-cases/health-bot/health-bot.module';
+import { UseCasesModule } from './app/use-cases/use-cases.module';
+import { DatabaseModule } from './config/database.module';
 
 @Module({
-  imports: [WhatsappModule, SchedulingModule, HealthBotModule],
+  imports: [DatabaseModule, WhatsappModule, UseCasesModule],
 })
 export class AppModule {}

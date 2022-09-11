@@ -1,17 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { create, Whatsapp } from 'venom-bot';
 
+const SESSION_NAME = 'chat_scheduling';
+
 @Injectable()
 export class WhatsappService {
-  /**
-   * @var configuration of whatsapp
-   */
-  private optionsBot = {
-    session: 'session-name',
-    multidevice: true,
-    logQR: true,
-  };
-
   /**
    * @var Whatsapp
    */
@@ -25,10 +18,9 @@ export class WhatsappService {
   /**
    * Start application venom-bot
    */
-  start() {
-    create(
-      'session-name', //Pass the name of the client you want to start the bot
-      //catchQR
+  async start() {
+    const client = await create(
+      SESSION_NAME,
       (base64Qrimg) => {
         WhatsappService.qrCode = base64Qrimg;
       },
@@ -37,11 +29,9 @@ export class WhatsappService {
         multidevice: true,
         logQR: false,
       },
-    )
-      .then((client) => (WhatsappService.clientBot = client))
-      .catch((erro) => {
-        console.log(erro);
-      });
+    );
+
+    WhatsappService.clientBot = client;
   }
 
   /**
