@@ -5,7 +5,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { ScheduleEntity } from '../schedules/schedule.entity';
 
 @Entity('customers')
 export class CustomerEntity extends BaseEntity {
@@ -20,6 +22,9 @@ export class CustomerEntity extends BaseEntity {
 
   @Column({ nullable: false, default: true })
   status: boolean;
+
+  @OneToMany(() => ScheduleEntity, (schedule) => schedule.customer)
+  schedules: ScheduleEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

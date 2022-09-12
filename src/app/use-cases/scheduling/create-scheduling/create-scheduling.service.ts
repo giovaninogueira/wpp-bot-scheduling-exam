@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CustomerEntity } from 'src/app/models/customer.entity';
+import { CustomerEntity } from 'src/app/models/customer/customer.entity';
 import { Repository } from 'typeorm';
 import { CreateSchedulingDTO } from './create-scheduling.dto';
 
